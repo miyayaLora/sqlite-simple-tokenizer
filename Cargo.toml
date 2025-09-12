@@ -3,7 +3,7 @@ resolver = "3"
 
 [workspace.package]
 authors = ["Cathy Luking <cathyluking@foxmail.com>"]
-version = "0.3.2"
+version = "0.3.3"
 edition = "2024"
 license = "MIT OR Apache-2.0"
 
@@ -20,7 +20,7 @@ repository = "https://github.com/lukingcathy/sqlite-simple-tokenizer"
 
 [lib]
 name = "sqlite_simple_tokenizer"
-crate-type = ["cdylib"]
+crate-type = ["lib", "cdylib"]
 
 [features]
 defualt = []
