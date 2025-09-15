@@ -1,11 +1,10 @@
 use crate::pinyin::has_pinyin;
-use rust_stemmers::{Algorithm, Stemmer};
 use std::sync::LazyLock;
 use unicode_normalization::UnicodeNormalization;
+use waken_snowball::{Algorithm, Stemmer};
 
 /// 适用于英语的词干提取器
-pub(super) static EN_STEMMER: LazyLock<Stemmer> =
-    LazyLock::new(|| Stemmer::create(Algorithm::English));
+pub(super) static EN_STEMMER: LazyLock<Stemmer> = LazyLock::new(|| Algorithm::English.stemmer());
 
 /// 判断是不是由空字符、控制字符、ascii标点字符组成的字符串
 pub(super) fn is_space_or_ascii_punctuation_str(word: &str) -> bool {
