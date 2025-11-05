@@ -1,5 +1,5 @@
 // 代码来自 https://gist.github.com/ColonelThirtyTwo/3dd1fe04e4cff0502fa70d12f3a6e72e/revisions
-// 针对 Rust 和 ruqlite 的新版本做了一些调整
+// 针对 Rust 和 rusqlite 的新版本做了一些调整
 
 pub mod jieba_tokenizer;
 pub mod simple_tokenizer;
@@ -500,5 +500,48 @@ mod tests {
             let row = row.unwrap();
             assert_eq!("国家".to_owned(), row);
         }
+    }
+
+    #[test]
+    fn test_register_jieba_tokenizer_with_space_str() {
+        let conn = Connection::open_in_memory().unwrap();
+        register_tokenizer::<JiebaTokenizer>(&conn, ()).unwrap();
+        // 创建一个测试表, simple 不开启 pinyin 分词
+        conn.execute(
+            "CREATE VIRTUAL TABLE t1 USING fts5(id, title, introduction, summary, readme, tokenize = 'jieba');",
+            [],
+        )
+            .unwrap();
+        // 插入数据
+        conn.execute("INSERT INTO t1(id, title, introduction, summary, readme) VALUES ('019976ba-beff-7311-96c9-d0ba0bce1e1b', 'codeup', 'Great code generation model based on Llama2.', '', '');", [])
+            .unwrap();
+    }
+
+    #[test]
+    fn test_register_jieba_tokenizer_with_() {
+        let conn = Connection::open_in_memory().unwrap();
+        register_tokenizer::<JiebaTokenizer>(&conn, ()).unwrap();
+        // 创建一个测试表
+        conn.execute(
+            "CREATE VIRTUAL TABLE t1 USING fts5(text, tokenize = 'jieba');",
+            [],
+        )
+        .unwrap();
+        // 插入数据
+        conn.execute(r#"INSERT INTO t1(text) VALUES ('社会主义国家'),('静夜思'),('国家'),('举头望明月'),('like'),('liking'),('liked'),('I''m making a sqlite tokenizer'),('I''m learning English');"#, []).unwrap();
+        // 查询
+        let mut stmt = conn
+            .prepare("SELECT * FROM t1 WHERE text MATCH '国家';")
+            .unwrap();
+        // 结果处理
+        let result = stmt
+            .query_map([], |row| Ok(row.get::<_, String>(0).unwrap()))
+            .unwrap();
+        let mut vec = Vec::new();
+        for row in result {
+            let row = row.unwrap();
+            vec.push(row)
+        }
+        assert_eq!(["社会主义国家", "国家"], vec.as_slice());
     }
 }

@@ -33,7 +33,7 @@ log = "0.4.28"
 phf = { version = "0.13.1", default-features = false, features = ["macros"] }
 rusqlite = { version = "0.37.0", default-features = false, features = ["bundled", "functions", "vtab", "array"] }
 waken_snowball = "0.1.0"
-unicode-normalization = "0.1.24"
+unicode-normalization = "0.1.25"
 unicode-segmentation = "1.12.0"
 
 [build-dependencies]

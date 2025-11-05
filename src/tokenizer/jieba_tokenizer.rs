@@ -185,4 +185,12 @@ mod tests {
         ];
         assert_eq!(words, vec);
     }
+
+    #[test]
+    fn test_tokenize_by_jieba_cut2() {
+        let text = "社会主义国家";
+        let words = JIEBA.cut(text, true);
+        let vec = ["社会主义", "国家"];
+        assert_eq!(words, vec);
+    }
 }

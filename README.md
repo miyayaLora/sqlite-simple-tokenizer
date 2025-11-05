@@ -10,7 +10,9 @@
 
 - `simple_tokenizer` 对于汉语的处理，是将单字转换成 pinyin，并且辅以 `simple_query` 函数进行前缀匹配查询。`simple_query` 会将输入的字符串拆分成合法的拼音串，然后组装成 match 语句（包含原有字符串）。该 `simple_query` 方法中，如果提供的字符串的字符个数超过 20 个，将不再做拼音拆分。该 `simple_query`对字符串拆分成拼音的处理方式，极大程度上参考了 [simple](https://github.com/wangfenjin/simple) 这个项目，对此十分感谢 `simple` 项目提供的思路。
 
-- `jieba_tokenizer` 对于汉语的处理，是根据 `jieba.rs` 这个库进行词典分词。该分词器的分词处理，在文档查询和文档写入的时候均生效，可以正常使用 `match` 语法进行查询。
+  ***需要注意的是 `simple_query` 函数只是 `simple_tokenizer` 的辅助函数，不适用于 `jieba_tokenizer` ***
+
+- `jieba_tokenizer` 对于汉语的处理，是根据 `jieba.rs` 这个库进行词典分词。该分词器的分词处理，在文档查询和文档写入的时候均生效，使用 `match` 语法进行查询。
 
 ## 支持的 Rust 最小版本
 
