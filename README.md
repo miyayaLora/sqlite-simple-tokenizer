@@ -16,11 +16,13 @@
 
 ## 支持的 Rust 最小版本
 
-这个库在维护期间，支持的 Rust 最小版本均为当前稳定版本。并且，这个库会积极采用新稳定的一些 Rust 语法和标准库接口。
+这个库在维护期间，支持的 Rust 最小版本均为当前稳定版本。这个 crate 会积极采用 `Rust` 中新稳定的一些语法和标准库接口。
 
 ## 支持的 SQLite 版本
 
-这个库基于 `rusqlite 0.37.0` 上构建，目前支持的 SQLite 版本为 `3.50.4`。在较低版本的 SQLite 上，将无法加载此拓展。如果作为 Rust crate 使用，推荐开启 `rusqlite` 的 `bundled` 功能，使用 `rusqlite` 内置的 SQLite，减小版本不匹配而出问题的可能性。
+这个库基于 `rusqlite 0.38.0` 上构建，目前支持的 SQLite 版本为 `3.51.4`。较低版本的 SQLite 将无法加载此拓展。如果作为 Rust crate 使用，推荐开启 `rusqlite` 的 `bundled` 功能，使用 `rusqlite` 内置的 SQLite，减小版本不匹配而出问题的可能性。
+
+**我们的 Semver 策略跟随 rusqlite 的 Semver。当 rusqlite 的主版本号和次版本号发生变更，我们也会跟随变更，并且发布到 crates.io。**
 
 ## 将这个库构建为动态库
 
