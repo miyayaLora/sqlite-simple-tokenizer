@@ -1,6 +1,6 @@
 # sqlite-simple-tokenizer
 
-![License](https://img.shields.io/crates/l/PROJECT.svg)
+![Crates.io License](https://img.shields.io/crates/l/sqlite-simple-tokenizer)
 
 > 这是一个使用 `rusqlite` 构建 SQLite fts5 插件的项目，其主要功能是为 SQLite 提供中文分词。这个项目可以作为 Rust 的 crate 使用，也可以将其编译成动态库在 SQLite 中加载和使用。
 
