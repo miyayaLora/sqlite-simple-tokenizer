@@ -16,11 +16,11 @@ fn init(db: Connection) -> rusqlite::Result<bool> {
     // 调用 load 函数，以加载拓展函数
     match crate::load(&db) {
         Ok(()) => {
-            info!("[sqlite-simple-tokenizer] initialized");
+            info!("[sqlite-jieba-tokenizer] initialized");
             Ok(false)
         }
         Err(error) => {
-            error!("[sqlite-simple-tokenizer] initialization failed: {error:?}");
+            error!("[sqlite-jieba-tokenizer] initialization failed: {error:?}");
             Err(rusqlite::Error::ModuleError(format!("{error:?}")))
         }
     }

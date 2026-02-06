@@ -1,7 +1,7 @@
 use std::env;
 
 pub fn init_logging(default_level: log::LevelFilter) {
-    const LOG_LEVEL_ENV: &str = "SQLITE_SIMPLE_TOKENIZER_LOG";
+    const LOG_LEVEL_ENV: &str = "SQLITE_JIEBA_TOKENIZER_LOG";
 
     if env::var(LOG_LEVEL_ENV).is_err() {
         unsafe { env::set_var(LOG_LEVEL_ENV, default_level.to_string()) }
