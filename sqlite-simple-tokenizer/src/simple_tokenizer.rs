@@ -1,10 +1,8 @@
-use crate::pinyin::{get_pinyin, split_pinyin};
-use crate::tokenizer::{
-    utils::{make_lowercase, need_pinyin, EN_STEMMER}, TokenizeReason,
-    Tokenizer,
-};
-use crate::STOPWORD;
+use crate::pinyin::{get_pinyin, has_pinyin, split_pinyin};
 use rusqlite::Error;
+use rusqlite_ext::{TokenizeReason, Tokenizer};
+use sqlite_chinese_stopword::STOPWORD;
+use sqlite_english_stemmer::{EN_STEMMER, make_lowercase};
 use std::ffi::CStr;
 use std::ops::Range;
 use unicode_segmentation::UnicodeSegmentation;
@@ -153,6 +151,18 @@ impl Tokenizer for SimpleTokenizer {
         }
         Ok(())
     }
+}
+
+/// 判断这个单词是否需要使用 pinyin 模块进行处理
+fn need_pinyin(word: &str) -> bool {
+    if word.is_empty() || word.chars().count() > 1 {
+        // 空串，或者字符个数大于 1 的单词，不需要 pinyin 处理
+        return false;
+    }
+    if let Some(ch) = word.chars().next() {
+        return has_pinyin(&ch);
+    }
+    false
 }
 
 #[cfg(test)]

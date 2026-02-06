@@ -5,4 +5,15 @@ version.workspace = true
 edition.workspace = true
 license.workspace = true
 
+[features]
+defualt = []
+build_extension = ["rusqlite/loadable_extension"]
+
 [dependencies]
+env_logger = { workspace = true }
+jieba-rs = { workspace = true }
+log = { workspace = true }
+rusqlite = { workspace = true }
+rusqlite-ext = { workspace = true }
+sqlite-chinese-stopword = { workspace = true }
+sqlite-english-stemmer = { workspace = true }

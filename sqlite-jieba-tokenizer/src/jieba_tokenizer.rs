@@ -1,10 +1,8 @@
-use crate::tokenizer::{
-    utils::{is_space_or_ascii_punctuation_str, make_lowercase, EN_STEMMER}, TokenizeReason,
-    Tokenizer,
-};
-use crate::STOPWORD;
 use jieba_rs::Jieba;
 use rusqlite::Error;
+use rusqlite_ext::{TokenizeReason, Tokenizer};
+use sqlite_chinese_stopword::STOPWORD;
+use sqlite_english_stemmer::{EN_STEMMER, is_space_or_ascii_punctuation_str, make_lowercase};
 use std::ffi::CStr;
 use std::ops::Range;
 use std::sync::LazyLock;
@@ -191,6 +189,14 @@ mod tests {
         let text = "社会主义国家";
         let words = JIEBA.cut(text, true);
         let vec = ["社会主义", "国家"];
+        assert_eq!(words, vec);
+    }
+
+    #[test]
+    fn test_tokenize_by_jieba_cut3() {
+        let text = "中华人民共和国国歌";
+        let words = JIEBA.cut(text, true);
+        let vec = ["中华人民共和国", "国歌"];
         assert_eq!(words, vec);
     }
 }

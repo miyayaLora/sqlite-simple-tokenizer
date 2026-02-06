@@ -1,18 +1,15 @@
 #[cfg(feature = "build_extension")]
 mod create_extension;
-mod error;
 mod load_extension;
 mod pinyin;
-mod tokenizer;
+pub mod simple_tokenizer;
 mod utils;
 
-include!(concat!(env!("OUT_DIR"), "/stopword_data.rs"));
-
-pub use error::Error;
 use load_extension::create_scalar_functions;
 use load_extension::load_fts5_extension;
 use log::LevelFilter;
 use rusqlite::Connection;
+use rusqlite_ext::error::Error;
 use utils::init_logging;
 
 pub fn load(connection: &Connection) -> Result<(), Error> {

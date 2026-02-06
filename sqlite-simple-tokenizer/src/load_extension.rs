@@ -1,11 +1,10 @@
-use crate::tokenizer::jieba_tokenizer::JiebaTokenizer;
-use crate::tokenizer::register_tokenizer;
-use crate::tokenizer::simple_tokenizer::SimpleTokenizer;
+use crate::simple_tokenizer::SimpleTokenizer;
 use crate::utils::to_rusqlite_error;
+use rusqlite::Connection;
 use rusqlite::functions::Context as FunctionContext;
 use rusqlite::functions::FunctionFlags;
 use rusqlite::types::{ToSqlOutput, Value, ValueRef};
-use rusqlite::Connection;
+use rusqlite_ext::register_tokenizer;
 
 pub fn create_scalar_functions(connection: &Connection) -> Result<(), crate::Error> {
     let deterministic = FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8;
@@ -47,7 +46,5 @@ fn simple_query<'a>(ctx: &FunctionContext) -> Result<ToSqlOutput<'a>, crate::Err
 pub fn load_fts5_extension(connection: &Connection) -> Result<(), crate::Error> {
     // 注册 simple_tokenizer
     register_tokenizer::<SimpleTokenizer>(connection, ())?;
-    // 注册 jieba_tokenizer
-    register_tokenizer::<JiebaTokenizer>(connection, ())?;
     Ok(())
 }

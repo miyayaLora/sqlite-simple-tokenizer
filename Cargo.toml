@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["sqlite-jieba-tokenizerxx", "sqlite-simple-tokenizer"]
+members = ["rusqlite-ext", "sqlite-chinese-stopword", "sqlite-jieba-tokenizer", "sqlite-simple-tokenizer", "sqlite-english-stemmer"]
 
 [workspace.package]
 authors = ["Cathy Luking <cathyluking@foxmail.com>"]
@@ -15,6 +15,8 @@ log = "0.4.29"
 phf = { version = "0.13.1", default-features = false, features = ["macros"] }
 phf_codegen = "0.13.1"
 rusqlite = { version = "0.38.0", default-features = false, features = ["bundled", "functions", "vtab", "array"] }
-waken_snowball = "0.1.0"
-unicode-normalization = "0.1.25"
+rusqlite-ext = { path = "rusqlite-ext", version = "0.38.0" }
+sqlite-chinese-stopword = { path = "sqlite-chinese-stopword", version = "0.1.0" }
+sqlite-english-stemmer = { path = "sqlite-english-stemmer", version = "0.1.0" }
+sqlite-jieba-tokenizer = { path = "sqlite-jieba-tokenizer", version = "0.1.0" }
 unicode-segmentation = "1.12.0"
