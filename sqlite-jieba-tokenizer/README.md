@@ -1,14 +1,14 @@
 # sqlite-simple-tokenizer
 
-![Crates.io License](1https://img.shields.io/crates/l/sqlite-simple-tokenizer)
+![Crates.io License](https://img.shields.io/crates/l/sqlite-simple-tokenizer)
 
 > 这是一个使用 `rusqlite` 构建 SQLite fts5 插件的项目，其主要功能是为 SQLite 提供中文分词。这个项目可以作为 Rust 的 crate 使用，也可以将其编译成动态库在 SQLite 中加载和使用。
 
 ## 简介
 
-这个项目提供一种 SQLite 分词器 `simple_tokenizer`，可处理汉语和英语两种语言，内置了汉语和英语常见停词表。汉语可以通过拼音(`simple_tokenizer`)进行分词，而英语单词在分词后，会根据 `Snowball Stemmer` 进行了词根提取。
+这个项目提供一种 SQLite 分词器 `jieba_tokenizer`，可处理汉语和英语两种语言，内置了汉语和英语常见停词表。汉语可以通过词典(`jieba_tokenizer`)进行分词，而英语单词在分词后，会根据 `Snowball Stemmer` 进行了词根提取。
 
-- `simple_tokenizer` 对于汉语的处理，是将单字转换成 pinyin，并且辅以 `simple_query` 函数进行前缀匹配查询。`simple_query` 会将输入的字符串拆分成合法的拼音串，然后组装成 match 语句（包含原有字符串）。该 `simple_query` 方法中，如果提供的字符串的字符个数超过 20 个，将不再做拼音拆分。该 `simple_query`对字符串拆分成拼音的处理方式，极大程度上参考了 [simple](https://github.com/wangfenjin/simple) 这个项目，对此十分感谢 `simple` 项目提供的思路。
+- `jieba_tokenizer` 对于汉语的处理，是根据 `jieba.rs` 这个库进行词典分词。该分词器的分词处理，在文档查询和文档写入的时候均生效，使用 `match` 语法进行查询。
 
 ## 支持的 Rust 最小版本
 
@@ -35,38 +35,24 @@
 ## Tokenizer 基本配置和 `simple_query` 示例
 
 ```sqlite
--- 使用默认配置注册 tokenizer，即 simple 默认启用 pinyin 模块和停词表
+-- 使用默认配置注册 tokenizer，jieba 默认启用停词表
 CREATE VIRTUAL TABLE t1 USING fts5
 (
     text,
-    tokenize = 'simple'
+    tokenize = 'jieba'
 );
 
 -- 不启用停词表
 CREATE VIRTUAL TABLE t1 USING fts5
 (
     text,
-    tokenize = 'simple disable_stopword'
-);
-
--- simple 不启用 pinyin 模块
-CREATE VIRTUAL TABLE t1 USING fts5
-(
-    text,
-    tokenize = 'simple disable_pinyin'
-);
-
--- simple 不启用 pinyin 模块和停词表
-CREATE VIRTUAL TABLE t1 USING fts5
-(
-    text,
-    tokenize = 'simple disable_pinyin disable_stopword'
+    tokenize = 'jieba disable_stopword'
 );
 
 -- 使用 simple_query 查询
 SELECT *
 FROM t1
-WHERE text MATCH simple_query('国');
+WHERE text MATCH '国';
 ```
 
 ## 在 Rust 使用这个库
@@ -75,21 +61,29 @@ WHERE text MATCH simple_query('国');
 
 ```rust,not-run
 let conn = Connection::open_in_memory().unwrap();
-load( & conn).unwrap();
+load(&conn).unwrap();
 // 创建一个测试表
-conn.execute("CREATE VIRTUAL TABLE t1 USING fts5(text, tokenize = 'simple');", [], ).unwrap();
+conn.execute(
+    "CREATE VIRTUAL TABLE t1 USING fts5(text, tokenize = 'jieba');",
+    [],
+).unwrap();
 // 插入数据
-conn.execute(r#"INSERT INTO t1(text) VALUES ('中华人民共和国国歌'),('静夜思'),('国家'),('举头望明月'),('like'),('liking'),('liked'),('I''m making a sqlite tokenizer'),('I''m learning English');"#, [], ).unwrap();
-// 查询
-let mut stmt = conn.prepare("SELECT * FROM t1 WHERE text MATCH simple_query('国');").unwrap();
-// 结果处理
-let result = stmt.query_map([], | row| Ok(row.get::<_, String>(0).unwrap())).unwrap();
+conn.execute(
+    r#"INSERT INTO t1(text) VALUES ('中华人民共和国国歌'),('静夜思'),('国家'),('举头望明月'),('like'),('liking'),('liked'),('I''m making a sqlite tokenizer'),('I''m learning English');"#,
+    [],
+).unwrap();
+let mut stmt = conn
+    .prepare("SELECT * FROM t1 WHERE text MATCH '国歌';")
+    .unwrap();
+let result = stmt
+    .query_map([], |row| Ok(row.get::<_, String>(0).unwrap()))
+    .unwrap();
 let mut vec = Vec::new();
 for row in result {
     let row = row.unwrap();
     vec.push(row)
 }
-assert_eq!(["中华人民共和国国歌", "国家"], vec.as_slice());
+assert_eq!(["中华人民共和国国歌"], vec.as_slice());
 ```
 
 ## 许可

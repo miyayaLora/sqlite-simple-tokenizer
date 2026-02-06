@@ -4,6 +4,10 @@ version = "0.38.0"
 authors.workspace = true
 edition.workspace = true
 license.workspace = true
+description = "This is a Rusqlite extension for building the FTS5 tokenizer."
+keywords = ["SQLite", "Extension", "Rusqlite", "Tokenizer"]
+readme = "README.md"
+repository = "https://github.com/lukingcathy/sqlite-simple-tokenizer"
 
 [lib]
 path = "lib.rs"

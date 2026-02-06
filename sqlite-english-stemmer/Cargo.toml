@@ -4,6 +4,10 @@ version = "0.1.0"
 authors.workspace = true
 edition.workspace = true
 license.workspace = true
+description = "This is an auxiliary library used for normalizing English words and identifying some special characters."
+keywords = ["English", "WakenSnowball", "SpecialCharacter"]
+readme = "README.md"
+repository = "https://github.com/lukingcathy/sqlite-simple-tokenizer"
 
 [lib]
 path = "lib.rs"
