@@ -14,6 +14,8 @@ use std::fmt::Formatter;
 use std::ops::Range;
 use std::panic::AssertUnwindSafe;
 
+pub mod error;
+
 /// fts5_api 的版本，要求最低版本不能低于 3
 const FTS5_API_VERSION: c_int = 3;
 /// 设置 fts5_tokenizer 的版本，设置为 2，使用 v2 接口
