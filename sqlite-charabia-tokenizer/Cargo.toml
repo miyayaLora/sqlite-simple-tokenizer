@@ -1,0 +1,22 @@
+[package]
+name = "sqlite-charabia-tokenizer"
+authors.workspace = true
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "This's a run-time loadable extension of SQLite fts5, supports Chinese and English word segmentation and search."
+keywords = ["SQLite", "Extension", "Charabia", "Tokenizer"]
+readme = "README.md"
+repository = "https://github.com/lukingcathy/sqlite-simple-tokenizer"
+
+[features]
+defualt = []
+build_extension = ["rusqlite/loadable_extension"]
+
+[dependencies]
+env_logger = { workspace = true }
+charabia = "0.9.9"
+log = { workspace = true }
+rusqlite = { workspace = true }
+rusqlite-ext = { workspace = true }
+sqlite-chinese-stopword = { workspace = true }

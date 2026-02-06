@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["rusqlite-ext", "sqlite-chinese-stopword", "sqlite-jieba-tokenizer", "sqlite-simple-tokenizer", "sqlite-english-stemmer"]
+members = ["rusqlite-ext", "sqlite-chinese-stopword", "sqlite-jieba-tokenizer", "sqlite-simple-tokenizer", "sqlite-english-stemmer", "sqlite-charabia-tokenizer"]
 
 [workspace.package]
 authors = ["Cathy Luking <cathyluking@foxmail.com>"]
