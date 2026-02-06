@@ -1,0 +1,13 @@
+[package]
+name = "sqlite-english-stemmer"
+authors.workspace = true
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+waken_snowball = "0.1.0"
+unicode-normalization = "0.1.25"
