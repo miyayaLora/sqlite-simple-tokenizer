@@ -4,7 +4,7 @@ members = ["rusqlite-ext", "sqlite-chinese-stopword", "sqlite-jieba-tokenizer", 
 
 [workspace.package]
 authors = ["Cathy Luking <cathyluking@foxmail.com>"]
-version = "0.4.0"
+version = "0.5.0"
 edition = "2024"
 license = "MIT OR Apache-2.0"
 

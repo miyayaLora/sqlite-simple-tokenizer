@@ -4,6 +4,9 @@
 
 > 这是一个使用 `rusqlite` 构建 SQLite fts5 插件的项目，其主要功能是为 SQLite 提供中文分词。这个项目可以作为 Rust 的 crate 使用，也可以将其编译成动态库在 SQLite 中加载和使用。
 
+> [!important]
+> `0.5.0` 版本后，去除了 jieba 分词的功能。需要使用 jieba 分词，请使用 `sqlite-jieba-tokenizer`
+
 ## 简介
 
 这个项目提供一种 SQLite 分词器 `simple_tokenizer`，可处理汉语和英语两种语言，内置了汉语和英语常见停词表。汉语可以通过拼音(`simple_tokenizer`)进行分词，而英语单词在分词后，会根据 `Snowball Stemmer` 进行了词根提取。
