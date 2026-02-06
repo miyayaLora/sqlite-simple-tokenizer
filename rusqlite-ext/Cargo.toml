@@ -1,0 +1,13 @@
+[package]
+name = "rusqlite-ext"
+version = "0.38.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+log = { workspace = true }
+rusqlite = { workspace = true }
