@@ -30,9 +30,9 @@
   cargo build --release --features build_extension
   ```
 
-- 在 `sqlite` 中使用 `.load libsqlite_simple_tokenizer` 进行加载
+- 在 `sqlite` 中使用 `.load libsqlite_jieba_tokenizer` 进行加载
 
-## Tokenizer 基本配置和 `simple_query` 示例
+## Tokenizer 基本配置和查询示例
 
 ```sqlite
 -- 使用默认配置注册 tokenizer，jieba 默认启用停词表
@@ -49,7 +49,7 @@ CREATE VIRTUAL TABLE t1 USING fts5
     tokenize = 'jieba disable_stopword'
 );
 
--- 使用 simple_query 查询
+-- 使用 match 查询
 SELECT *
 FROM t1
 WHERE text MATCH '国';
@@ -57,7 +57,7 @@ WHERE text MATCH '国';
 
 ## 在 Rust 使用这个库
 
-在 Rust 中使用这个分词器，需要引入 `rusqlite` 依赖， 使用 `cargo add rusqlite sqlite-simple-tokenizer` 安装依赖
+在 Rust 中使用这个分词器，需要引入 `rusqlite` 依赖， 使用 `cargo add rusqlite sqlite-jieba-tokenizer` 安装依赖
 
 ```rust,not-run
 let conn = Connection::open_in_memory().unwrap();
