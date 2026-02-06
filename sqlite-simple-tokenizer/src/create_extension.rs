@@ -1,6 +1,6 @@
 use log::{error, info};
-use rusqlite::Connection;
 use rusqlite::ffi::{sqlite3, sqlite3_api_routines};
+use rusqlite::Connection;
 use std::ffi::{c_char, c_int};
 
 #[unsafe(no_mangle)]

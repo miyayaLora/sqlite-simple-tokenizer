@@ -1,5 +1,6 @@
 [workspace]
 resolver = "3"
+members = ["sqlite-jieba-tokenizerxx", "sqlite-simple-tokenizer"]
 
 [workspace.package]
 authors = ["Cathy Luking <cathyluking@foxmail.com>"]
@@ -7,34 +8,13 @@ version = "0.4.0"
 edition = "2024"
 license = "MIT OR Apache-2.0"
 
-[package]
-name = "sqlite-simple-tokenizer"
-description = "This's a run-time loadable extension of SQLite fts5, supports Chinese and pinyin word segmentation and search."
-keywords = ["SQLite", "Extension", "Chinese", "Pinyin", "Tokenizer"]
-authors.workspace = true
-version.workspace = true
-edition.workspace = true
-license.workspace = true
-readme = "README.md"
-repository = "https://github.com/lukingcathy/sqlite-simple-tokenizer"
-
-[lib]
-name = "sqlite_simple_tokenizer"
-crate-type = ["lib", "cdylib"]
-
-[features]
-defualt = []
-build_extension = ["rusqlite/loadable_extension"]
-
-[dependencies]
+[workspace.dependencies]
 env_logger = "0.11.8"
 jieba-rs = "0.8.1"
 log = "0.4.29"
 phf = { version = "0.13.1", default-features = false, features = ["macros"] }
+phf_codegen = "0.13.1"
 rusqlite = { version = "0.38.0", default-features = false, features = ["bundled", "functions", "vtab", "array"] }
 waken_snowball = "0.1.0"
 unicode-normalization = "0.1.25"
 unicode-segmentation = "1.12.0"
-
-[build-dependencies]
-phf_codegen = "0.13.1"

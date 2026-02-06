@@ -2,10 +2,10 @@ use crate::tokenizer::jieba_tokenizer::JiebaTokenizer;
 use crate::tokenizer::register_tokenizer;
 use crate::tokenizer::simple_tokenizer::SimpleTokenizer;
 use crate::utils::to_rusqlite_error;
-use rusqlite::Connection;
 use rusqlite::functions::Context as FunctionContext;
 use rusqlite::functions::FunctionFlags;
 use rusqlite::types::{ToSqlOutput, Value, ValueRef};
+use rusqlite::Connection;
 
 pub fn create_scalar_functions(connection: &Connection) -> Result<(), crate::Error> {
     let deterministic = FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8;

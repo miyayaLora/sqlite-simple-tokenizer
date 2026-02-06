@@ -1,8 +1,8 @@
-use crate::STOPWORD;
 use crate::tokenizer::{
-    TokenizeReason, Tokenizer,
-    utils::{EN_STEMMER, is_space_or_ascii_punctuation_str, make_lowercase},
+    utils::{is_space_or_ascii_punctuation_str, make_lowercase, EN_STEMMER}, TokenizeReason,
+    Tokenizer,
 };
+use crate::STOPWORD;
 use jieba_rs::Jieba;
 use rusqlite::Error;
 use std::ffi::CStr;

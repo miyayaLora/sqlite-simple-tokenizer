@@ -5,14 +5,15 @@ pub mod jieba_tokenizer;
 pub mod simple_tokenizer;
 mod utils;
 
-use rusqlite::Connection;
 use rusqlite::ffi::{
-    FTS5_TOKEN_COLOCATED, FTS5_TOKENIZE_AUX, FTS5_TOKENIZE_DOCUMENT, FTS5_TOKENIZE_PREFIX,
-    FTS5_TOKENIZE_QUERY, Fts5Tokenizer, SQLITE_ERROR, SQLITE_OK, SQLITE_PREPARE_PERSISTENT,
-    fts5_api, fts5_tokenizer_v2, sqlite3_bind_pointer, sqlite3_finalize, sqlite3_prepare_v3,
-    sqlite3_step, sqlite3_stmt,
+    fts5_api, fts5_tokenizer_v2, sqlite3_bind_pointer, sqlite3_finalize,
+    sqlite3_prepare_v3, sqlite3_step, sqlite3_stmt, Fts5Tokenizer, FTS5_TOKENIZE_AUX,
+    FTS5_TOKENIZE_DOCUMENT, FTS5_TOKENIZE_PREFIX, FTS5_TOKENIZE_QUERY, FTS5_TOKEN_COLOCATED, SQLITE_ERROR,
+    SQLITE_OK, SQLITE_PREPARE_PERSISTENT,
 };
-use std::ffi::{CStr, c_char, c_int, c_void};
+use rusqlite::Connection;
+use std::convert::{TryFrom, TryInto};
+use std::ffi::{c_char, c_int, c_void, CStr};
 use std::fmt::Formatter;
 use std::ops::Range;
 use std::panic::AssertUnwindSafe;
@@ -189,7 +190,7 @@ unsafe extern "C" fn x_tokenize<T: Tokenizer>(
     let push_token = |token: &[u8],
                       Range { start, end }: Range<usize>,
                       colocated: bool|
-     -> Result<(), rusqlite::Error> {
+                      -> Result<(), rusqlite::Error> {
         let token_len: c_int = token.len().try_into().expect("Token is too long");
         assert!(
             start <= data.len() && end <= data.len(),
@@ -366,7 +367,7 @@ mod tests {
             "CREATE VIRTUAL TABLE t1 USING fts5(text, tokenize = 'simple');",
             [],
         )
-        .unwrap();
+            .unwrap();
         // 插入数据
         conn.execute(
             r#"INSERT INTO t1(text) VALUES ('中华人民共和国国歌'),('静夜思'),('国家'),('铁锅'),('举头望明月'),('like'),('liking'),('liked'),('I''m making a sqlite tokenizer'),('I''m learning English');"#,
@@ -397,7 +398,7 @@ mod tests {
             "CREATE VIRTUAL TABLE t1 USING fts5(text, tokenize = 'simple disable_pinyin');",
             [],
         )
-        .unwrap();
+            .unwrap();
         // 插入数据
         conn.execute(
             r#"INSERT INTO t1(text) VALUES ('中华人民共和国国歌'),('静夜思'),('国家'),('举头望明月'),('like'),('liking'),('liked'),('I''m making a sqlite tokenizer'),('I''m learning English');"#,
@@ -453,7 +454,7 @@ mod tests {
             "CREATE VIRTUAL TABLE t1 USING fts5(text, tokenize = 'simple disable_stopword');",
             [],
         )
-        .unwrap();
+            .unwrap();
         // 插入数据
         conn.execute(
             r#"INSERT INTO t1(text) VALUES ('中华人民共和国国歌'),('静夜思'),('国家'),('举头望明月'),('like'),('liking'),('liked'),('I''m making a sqlite tokenizer'),('I''m learning English');"#,
@@ -483,7 +484,7 @@ mod tests {
             "CREATE VIRTUAL TABLE t1 USING fts5(text, tokenize = 'jieba');",
             [],
         )
-        .unwrap();
+            .unwrap();
         // 插入数据
         conn.execute(
             "INSERT INTO t1(text) VALUES ('中华人民共和国国歌'),('静夜思'),('国家'),('举头望明月'),('like'),('liking'),('liked');",
@@ -526,7 +527,7 @@ mod tests {
             "CREATE VIRTUAL TABLE t1 USING fts5(text, tokenize = 'jieba');",
             [],
         )
-        .unwrap();
+            .unwrap();
         // 插入数据
         conn.execute(r#"INSERT INTO t1(text) VALUES ('社会主义国家'),('静夜思'),('国家'),('举头望明月'),('like'),('liking'),('liked'),('I''m making a sqlite tokenizer'),('I''m learning English');"#, []).unwrap();
         // 查询

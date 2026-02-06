@@ -1,9 +1,9 @@
-use crate::STOPWORD;
 use crate::pinyin::{get_pinyin, split_pinyin};
 use crate::tokenizer::{
-    TokenizeReason, Tokenizer,
-    utils::{EN_STEMMER, make_lowercase, need_pinyin},
+    utils::{make_lowercase, need_pinyin, EN_STEMMER}, TokenizeReason,
+    Tokenizer,
 };
+use crate::STOPWORD;
 use rusqlite::Error;
 use std::ffi::CStr;
 use std::ops::Range;

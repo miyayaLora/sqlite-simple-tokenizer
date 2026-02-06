@@ -148,7 +148,7 @@ static PINYIN_VALID: phf::Set<&'static str> = phf_set! {
 
 #[cfg(test)]
 mod tests {
-    use crate::pinyin::{PINYIN_DIRT, get_pinyin, split_pinyin};
+    use crate::pinyin::{get_pinyin, split_pinyin, PINYIN_DIRT};
     use std::collections::BTreeSet;
 
     #[test]
