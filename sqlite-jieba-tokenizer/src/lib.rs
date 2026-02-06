@@ -27,7 +27,7 @@ mod tests {
     use rusqlite::Connection;
 
     #[test]
-    fn test_load() {
+    fn test_jieba() {
         let conn = Connection::open_in_memory().unwrap();
         load(&conn).unwrap();
         // 创建一个测试表

@@ -47,7 +47,7 @@ mod tests {
     }
 
     #[test]
-    fn test_load() {
+    fn test_simple() {
         let conn = Connection::open_in_memory().unwrap();
         load(&conn).unwrap();
         // 创建一个测试表
