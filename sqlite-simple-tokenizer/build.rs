@@ -6,7 +6,7 @@ use std::io::Write;
 use std::path::Path;
 use std::sync::LazyLock;
 
-static DEFAULT_PINYIN_DATA: &str = include_str!("../data/pinyin.txt");
+static DEFAULT_PINYIN_DATA: &str = include_str!("data/pinyin.txt");
 
 /// 带声调的韵母和和不带声调的韵母的映射
 static TONE_TO_PLAIN: LazyLock<HashMap<char, char>> = LazyLock::new(|| {

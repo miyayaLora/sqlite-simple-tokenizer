@@ -4,7 +4,7 @@ use std::io::BufWriter;
 use std::io::Write;
 use std::path::Path;
 
-static DEFAULT_STOPWORD: &str = include_str!("../data/stopword.txt");
+static DEFAULT_STOPWORD: &str = include_str!("data/stopword.txt");
 
 fn main() {
     println!("cargo:rerun-if-changed=build.rs");
