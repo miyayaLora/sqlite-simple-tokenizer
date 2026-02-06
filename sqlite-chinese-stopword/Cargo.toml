@@ -8,5 +8,8 @@ license.workspace = true
 [lib]
 path = "lib.rs"
 
+[dependencies]
+phf = { workspace = true }
+
 [build-dependencies]
 phf_codegen = { workspace = true }
