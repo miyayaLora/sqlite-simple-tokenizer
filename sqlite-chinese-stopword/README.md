@@ -1,4 +1,4 @@
-# sqlite-simple-tokenizer
+# sqlite-chinese-stopword
 
 ![Crates.io License](https://img.shields.io/crates/l/sqlite-simple-tokenizer)
 

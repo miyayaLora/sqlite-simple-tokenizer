@@ -1,4 +1,4 @@
-# sqlite-simple-tokenizer
+# sqlite-charabia-tokenizer
 
 ![Crates.io License](https://img.shields.io/crates/l/sqlite-simple-tokenizer)
 
