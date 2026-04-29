@@ -25,7 +25,7 @@ rusqlite = { workspace = true }
 rusqlite-ext = { workspace = true }
 sqlite-chinese-stopword = { workspace = true }
 sqlite-english-stemmer = { workspace = true }
-unicode-segmentation = "1.12.0"
+unicode-segmentation = "1.13.2"
 
 [build-dependencies]
 phf_codegen = { workspace = true }

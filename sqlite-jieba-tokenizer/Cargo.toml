@@ -15,7 +15,7 @@ build_extension = ["rusqlite/loadable_extension"]
 
 [dependencies]
 env_logger = { workspace = true }
-jieba-rs = "0.8.1"
+jieba-rs = "0.9.0"
 log = { workspace = true }
 rusqlite = { workspace = true }
 rusqlite-ext = { workspace = true }
